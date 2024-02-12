@@ -7,7 +7,7 @@ settings.SCREEN_WIDTH = 64
 settings.SCREEN_HEIGHT = 32
 settings.SCREEN_SCALE = 15 -- Scale the screen by this factor
 
-settings.DEBUG_MODE = true
-settings.ROM_NAME = "6-keypad.ch8"
+settings.DEBUG_MODE = false
+settings.ROM_NAME = "PONG"
 
 return settings

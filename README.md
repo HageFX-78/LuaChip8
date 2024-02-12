@@ -2,6 +2,12 @@
 
 My personal first lua program made to learn about emulation and lua the programming language itself, implementations and design of code may be a mess as this is my first lua program.
 
+Requires [Love2D](https://love2d.org) to run.
+
+
+Usage
+- Roms can be placed in the `roms` folder and chaning the ROM_FILENAME value to the new file in `settings.lua`
+- Other settings can also be adjusted in `settings.lua` such as `INSTRUCTIONS_PER_FRAME` or `FRAMES_PER_SECOND` according to different roms as it may vary
 
 Notes
 - Can load up most ROMS in the folder (Disclaimer:None of them are mine)
