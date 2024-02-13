@@ -166,4 +166,11 @@ function Cpu:executeInstruction(opcode)
     return string.format("Opcode: %x, x: %x, y: %x, kk: %x", opcode, self.x, self.y, self.kk)
 end
 
+function Cpu:keyPressWaitTriggered(keyCode)
+    self.V[self.x] = keyCode
+    self.paused = false
+    
+    return keyCode
+end
+
 return Cpu

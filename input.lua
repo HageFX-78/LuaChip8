@@ -21,6 +21,7 @@ Input.KEYMAP = {
 }
 
 local keysPressed = {}
+local waitingForKeyPress = false
 
 function Input:init()
     keysPressed = {}
@@ -31,11 +32,10 @@ function Input:init()
 end
 
 
-
 function Input:setKeyState(key, state)
-    if Input.KEYMAP[key] then -- Check if the key is in the keymap
+    if Input.KEYMAP[key] then
         keysPressed[Input.KEYMAP[key]] = state
-        return Input.KEYMAP[key]  -- Return the corresponding keycode
+        return Input.KEYMAP[key]  -- Return the corresponding keycode hex format
     else
         return 0  -- Return nil if key is not in the keymap
     end
@@ -48,21 +48,12 @@ end
 function Input:getKeysPressed()
     return keysPressed
 end
-function Input:waitForKeypress()
-    local keyPressed = false
-    local keyCode = nil
-    while not keyPressed do
-        for key, state in pairs(keysPressed) do
-            love.timer.sleep(0.1)
 
-            if state then
-                keyPressed = true
-                keyCode = key
-                break
-            end
-        end
-    end
-    return keyCode
+function Input:isWaitingForKeyPress()
+    return waitingForKeyPress
+end
+function Input:setWaitingForKeyPress(state)
+    waitingForKeyPress = state
 end
 
 return Input

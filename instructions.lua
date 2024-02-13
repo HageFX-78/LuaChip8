@@ -157,24 +157,10 @@ Instruction[0xF000] = function (cpu, opcode)
         cpu.V[cpu.x] = cpu.DT
         
     elseif cpu.kk == 0x0A then -- Fx0A - LD Vx, K - Wait for a key press, store the value of the key in Vx
+
+        -- Not the best implmentation but works for now
         cpu.paused = true
-
-        local keyPressed = false
-        local keyCode = nil
-
-        while not keyPressed do
-            for key, state in pairs(cpu.Input:getKeysPressed()) do
-                if state then
-                    keyPressed = true
-                    keyCode = key
-                    break
-                end
-            end
-            coroutine.yield()  -- Yield to allow other processes to run
-        end
-
-        cpu.paused = false
-        cpu.V[cpu.x] = keyCode
+        cpu.Input:setWaitingForKeyPress(true)
 
     elseif cpu.kk == 0x15 then -- Fx15 - LD DT, Vx - Set delay timer = Vx
         cpu.DT = cpu.V[cpu.x]

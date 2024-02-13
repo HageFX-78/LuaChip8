@@ -10,7 +10,7 @@ local lastFrameTime
 
 
 local DEBUG_MODE = false
-local test = ""
+local keyDebug = ""
 local romDebug = ""
 local cpuDebug = ""
 
@@ -56,8 +56,40 @@ function love.keypressed(key, scancode, isrepeat)
         end
     end
 
-    local returnedKEy = Input:setKeyState(key, true)
-    test = string.format("0x%X", returnedKEy)
+    
+
+
+    local returnedKey
+    if(Input:isWaitingForKeyPress()) then
+        Input:setWaitingForKeyPress(false)
+        returnedKey = Cpu:keyPressWaitTriggered(Input.KEYMAP[key])
+    else
+        returnedKey = Input:setKeyState(key, true)
+    end
+
+    keyDebug = string.format("0x%X", returnedKey)
+
+
+    -- External controls for the emulator
+    if key == "escape" then
+        love.event.quit()
+    elseif key == "b" then
+        Cpu.paused = not Cpu.paused
+    elseif key == "n" then
+        Cpu:Cycle()
+    elseif key == "m" then
+        Settings.DEBUG_MODE = not Settings.DEBUG_MODE
+    elseif key == "k" then
+        Settings.INSTRUCITONS_PER_FRAME = Settings.INSTRUCITONS_PER_FRAME + 1
+    elseif key == "l" then
+        Settings.INSTRUCITONS_PER_FRAME = Settings.INSTRUCITONS_PER_FRAME - 1
+    elseif key == "o" then
+        Settings.FRAMES_PER_SECOND = Settings.FRAMES_PER_SECOND + 5
+        interval = 1 / Settings.FRAMES_PER_SECOND
+    elseif key == "p" then
+        Settings.FRAMES_PER_SECOND = Settings.FRAMES_PER_SECOND - 5
+        interval = 1 / Settings.FRAMES_PER_SECOND
+    end
 end
 function love.keyreleased(key)
     Input:setKeyState(key, false)
@@ -69,8 +101,8 @@ function love.draw()
     love.graphics.setColor(0,1,1)
 
     if Settings.DEBUG_MODE then
-        love.graphics.print("FPS: " .. love.timer.getFPS(), (Settings.SCREEN_WIDTH * Settings.SCREEN_SCALE) - 100, 5)
-        love.graphics.print("Keyscan - " .. test .. " || " .. romDebug .. " || " .. cpuDebug, 5, 5)
+        love.graphics.print("FPS: " .. Settings.FRAMES_PER_SECOND .. " || IPS: " .. Settings.INSTRUCITONS_PER_FRAME, (Settings.SCREEN_WIDTH * Settings.SCREEN_SCALE) - 300, 5)
+        love.graphics.print("Keyscan - " .. keyDebug .. " || " .. romDebug .. " || " .. cpuDebug, 5, 5)
     end
     
 

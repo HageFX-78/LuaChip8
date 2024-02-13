@@ -8,6 +8,6 @@ settings.SCREEN_HEIGHT = 32
 settings.SCREEN_SCALE = 15 -- Scale the screen by this factor
 
 settings.DEBUG_MODE = false
-settings.ROM_NAME = "PONG"
+settings.ROM_NAME = "4-flags.ch8"
 
 return settings
