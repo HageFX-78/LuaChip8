@@ -9,6 +9,8 @@ Requires [Love2D](https://love2d.org) to run.
 - Roms can be placed in the `roms` folder and chaning the ROM_FILENAME value to the new file in `settings.lua`
 - Other settings can also be adjusted in `settings.lua` such as `INSTRUCTIONS_PER_FRAME` or `FRAMES_PER_SECOND` according to different roms as it may vary
 
+## Showcase Video
+- [![Watch the video](https://img.youtube.com/vi/IkAhq2UsVIQ/maxresdefault.jpg)](https://youtu.be/IkAhq2UsVIQ)
 
 ## Notes
 - Can load up most ROMS in the folder (Disclaimer:None of them are mine)
